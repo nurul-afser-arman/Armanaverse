@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090612">
+  <title>Armanaverse — A Birthday Journey</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"></div>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Armanaverse home">AR<span>MA</span>NAVERSE</a>
+    <div class="top-actions">
+      <button class="music-toggle" id="musicToggle" type="button" aria-label="Mute background music" title="Mute / unmute music">
+        <span id="musicIcon">♫</span><span id="musicLabel">Music on</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1: Mini game -->
+    <section class="scene active" id="scene-game" data-scene="game">
+      <div class="scene-inner center">
+        <p class="eyebrow">A tiny mission before the magic</p>
+        <h1 class="display">Collect the <em>starlight</em>, Madam.</h1>
+        <p class="lead">Catch the little stars floating around. Your surprise is waiting on the other side.</p>
+        <div class="game-panel">
+          <div class="game-meta"><span>Starlight collected</span><strong><span id="starScore">0</span> / 5</strong></div>
+          <div class="game-field" id="gameField" aria-label="Star collecting game">
+            <span class="game-hint" id="gameHint">Tap the glowing stars ✦</span>
+          </div>
+          <button class="primary-btn" id="startGame" type="button">Start the little game <span>✦</span></button>
+        </div>
+        <p class="micro">A little patience, a little magic, and a very special birthday.</p>
+      </div>
+    </section>
+
+    <!-- 2: Entrance -->
+    <section class="scene" id="scene-entrance" data-scene="entrance">
+      <div class="scene-inner center">
+        <div class="portal-wrap"><div class="portal"><span>✦</span></div></div>
+        <p class="eyebrow">The stars have made room for you</p>
+        <h1 class="display">Welcome to<br><em>Armanaverse</em></h1>
+        <p class="lead">A little universe made with a lot of thought, a little mischief, and one very special Madam in mind.</p>
+        <button class="primary-btn" data-next="ready">Enter my universe <span>↗</span></button>
+      </div>
+    </section>
+
+    <!-- 3: Ready -->
+    <section class="scene" id="scene-ready" data-scene="ready">
+      <div class="scene-inner center">
+        <div class="floating-heart">♡</div>
+        <p class="eyebrow">One tiny question, though...</p>
+        <h1 class="display">Are you ready<br>for a <em>surprise?</em></h1>
+        <p class="lead">Madam, there is no pressure. But curiosity looks good on you. 👀</p>
+        <div class="choice-row">
+          <button class="primary-btn" id="yesBtn" type="button">YES, obviously ✨</button>
+          <button class="secondary-btn" id="noBtn" type="button">NO 🙄</button>
+        </div>
+        <p class="choice-message" id="choiceMessage" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 4: Birthday reveal -->
+    <section class="scene" id="scene-birthday" data-scene="birthday">
+      <div class="scene-inner center celebration">
+        <div class="balloon balloon-a"></div><div class="balloon balloon-b"></div><div class="balloon balloon-c"></div>
+        <p class="eyebrow">Today, the universe has a favourite reason to celebrate</p>
+        <h1 class="display birthday-title">Happy Birthday,<br><em>Madam!</em></h1>
+        <p class="lead">May your day be as lovely as the little things that make you, you.</p>
+        <div class="cake" aria-label="Animated birthday cake">
+          <div class="flame"></div><div class="candle"></div><div class="icing"></div><div class="cake-top"></div><div class="cake-base"></div>
+        </div>
+        <button class="primary-btn" data-next="wish">Make a little wish <span>✧</span></button>
+      </div>
+    </section>
+
+    <!-- 5: Wish -->
+    <section class="scene" id="scene-wish" data-scene="wish">
+      <div class="scene-inner center">
+        <p class="eyebrow">A moment just for you</p>
+        <h1 class="display">Make a <em>wish</em>, Cutie.</h1>
+        <p class="lead">Close your eyes for a second, think of something beautiful, then tap the candle.</p>
+        <button class="wish-candle" id="wishCandle" type="button" aria-label="Blow out the candle"><span class="wish-flame"></span><span class="wish-wick"></span></button>
+        <p class="choice-message" id="wishMessage" aria-live="polite">Your wish can stay a secret. ✨</p>
+        <button class="primary-btn hidden" id="wishContinue" data-next="letter" type="button">Keep the magic going <span>→</span></button>
+      </div>
+    </section>
+
+    <!-- 6: Letter -->
+    <section class="scene" id="scene-letter" data-scene="letter">
+      <div class="scene-inner letter-layout">
+        <div class="letter-intro">
+          <p class="eyebrow">A note, written with care</p>
+          <h1 class="display">A little letter<br><em>for you.</em></h1>
+          <p class="lead">Some people arrive quietly and still make the days feel a little lighter.</p>
+          <div class="signature">— from the Zunairahhholic ✦</div>
+        </div>
+        <article class="letter-card">
+          <div class="letter-top">To my favourite Madam <span>♡</span></div>
+          <p>Hey Madam,</p>
+          <p>First of all, happy birthday. I hope today reminds you how worthy you are of every beautiful thing life has to offer. I hope you get reasons to laugh until your cheeks hurt, moments that make your heart feel peaceful, and surprises that stay with you long after the day is over.</p>
+          <p>I don't know if you realise how much your presence can change the mood of an ordinary day. Sometimes it is just a little conversation, a random laugh, a silly reply, or the way you are simply yourself. Somehow, those little things have a way of becoming the parts I remember. And well, Arman Television has officially collected quite a few of those moments for its favourite viewer. 😂</p>
+          <p>And there's one little thing I sometimes wish I could tell you. Sometimes, when your replies take a really long time to arrive, I won't lie, it does make me feel a little sad. Maybe it's because I've grown used to finding a little happiness in those tiny notifications from you. I still remember those days when you'd send me a simple “Good morning” or “Good night” every now and then. They might have seemed like ordinary messages to you, but somehow, they meant more to me than you probably realised. It's never really about how long we talk or how many messages we exchange. It's those little texts, your random replies, your presence, and the feeling of having a small part of your day shared with me that I genuinely enjoy. I don't expect you to be available all the time; I just wanted you to know that even your smallest gestures can mean a lot to me. That's one honest little broadcast from ATV. ♡</p>
+          <p>There was a time when moving forward didn't feel particularly easy. I was carrying more thoughts than I knew what to do with. And without making a big announcement or even trying to, you helped make things feel lighter. You reminded me that there can still be new smiles, new conversations, and genuinely good moments ahead. For that, I am quietly and sincerely grateful. If ATV ever had to broadcast a special episode about the people who made someone's days brighter, Madam, you would definitely have your own segment.</p>
+          <p>I never want that gratitude to feel like a responsibility placed on you. You don't owe me anything for being kind, and you never have to be anything other than yourself. I just wanted you to know that your little presence has made a meaningful difference to someone. And that's one broadcast from ATV that comes without any expectations—just a little honesty from behind the screen.</p>
+          <p>Also, please don't let all this sweetness make you too proud. You are still very capable of being dramatic, confusing, and occasionally impossible to understand. But unfortunately for my reputation, that is apparently part of the charm. 😂 Even Arman Television sometimes struggles to understand your programming, but the channel has no plans to unsubscribe.</p>
+          <p>So, Padmaja, keep smiling in that way that makes the room feel a little warmer. Keep chasing the things that excite you. Be gentle with yourself on the difficult days, celebrate your smallest wins, and never make yourself smaller to fit anywhere. You deserve care, respect, peace, and a thousand little reasons to feel happy.</p>
+          <p>And if this year brings you unexpected turns, I hope it also brings the courage to take them, the strength to grow through them, and people who make the journey feel kinder. May every new chapter bring you something worth remembering. And whenever life gets a little too noisy, I hope you never forget that you deserve a little peace, a little kindness, and a whole lot of happiness. Consider this another special birthday broadcast from ATV, made especially for you.</p>
+          <p>Happy birthday once again, Bestu. Stay wonderfully you. The universe has enough ordinary things already; it could use a little more of your kind of magic.</p>
+          <p class="letter-signoff">With a smile, a little mischief, and lots of good wishes, also ATV from the Arman Television. You already know, Madam, what it means. ✦<br><strong>Your very much<br>Zunairahhholic ✦</strong></p>
+        </article>
+        <button class="primary-btn letter-next" data-next="compliments" type="button">There is more I want you to know <span>→</span></button>
+      </div>
+    </section>
+
+    <!-- 7: Compliments -->
+    <section class="scene" id="scene-compliments" data-scene="compliments">
+      <div class="scene-inner">
+        <div class="section-heading center">
+          <p class="eyebrow">A constellation of little appreciations</p>
+          <h1 class="display">Things that make you <em>you.</em></h1>
+          <p class="lead">Pick any glowing note. Each one has something I genuinely wanted you to know.</p>
+        </div>
+        <div class="compliment-grid" id="complimentGrid">
+          <button class="compliment-card" data-message="Your smile has a very unfair talent for making an ordinary moment memorable.">✦ <span>A little sunshine</span></button>
+          <button class="compliment-card" data-message="There is something quietly lovely about the way you carry yourself, Madam.">♡ <span>Your own kind of grace</span></button>
+          <button class="compliment-card" data-message="Your eyes deserve their own poetry section. I am still working on the words.">✧ <span>Those eyes</span></button>
+          <button class="compliment-card" data-message="You can be effortlessly funny without even realising you are doing it.">☾ <span>Accidental comedian</span></button>
+          <button class="compliment-card" data-message="You have a way of making conversations feel less ordinary.">✦ <span>Good conversation energy</span></button>
+          <button class="compliment-card" data-message="Your little reactions are sometimes more entertaining than the actual story.">♡ <span>The little reactions</span></button>
+          <button class="compliment-card" data-message="You deserve to see yourself with the same kindness that other people can see in you.">✧ <span>A gentle reminder</span></button>
+          <button class="compliment-card" data-message="There is a lovely mix of softness and strength in you, Cutie.">☾ <span>Soft but strong</span></button>
+          <button class="compliment-card" data-message="You make being yourself look like a pretty good idea. Keep doing that.">✦ <span>Simply being you</span></button>
+          <button class="compliment-card" data-message="Even your dramatic moments have a certain signature charm. Don't let this compliment go to your head. 😂">♡ <span>Madam being Madam</span></button>
+          <button class="compliment-card" data-message="I hope you never underestimate how much warmth your presence can bring to a day.">✧ <span>Your quiet impact</span></button>
+          <button class="compliment-card" data-message="You are not just pretty to look at; you are genuinely interesting to know.">☾ <span>More than a pretty face</span></button>
+        </div>
+        <div class="compliment-reveal" id="complimentReveal" aria-live="polite">Choose a note to reveal a compliment. ♡</div>
+        <div class="center"><button class="primary-btn" data-next="cosmos" type="button">Now, let me show you something enormous <span>→</span></button></div>
+      </div>
+    </section>
+
+    <!-- 8: Cosmic feelings -->
+    <section class="scene" id="scene-cosmos" data-scene="cosmos">
+      <div class="scene-inner center cosmos-inner">
+        <p class="eyebrow">A tiny thought about scale</p>
+        <h1 class="display">A feeling bigger than<br><em>the universe.</em></h1>
+        <p class="lead">Let's put a few things into perspective...</p>
+        <div class="cosmos-stage" id="cosmosStage">
+          <div class="cosmos-object" id="cosmosObject"><span id="cosmosSymbol">·</span></div>
+          <div class="cosmos-caption" id="cosmosCaption">Me — a tiny part of this enormous world.</div>
+        </div>
+        <div class="cosmos-controls">
+          <button class="secondary-btn" id="cosmosNext" type="button">Zoom out ✦</button>
+        </div>
+        <p class="cosmos-final hidden" id="cosmosFinal">And somehow, even the Milky Way feels smaller compared to what I feel for my Madam. ♡</p>
+        <button class="primary-btn hidden" id="cosmosContinue" data-next="wishes" type="button">One more little thing <span>→</span></button>
+      </div>
+    </section>
+
+    <!-- 9: Wishes jar -->
+    <section class="scene" id="scene-wishes" data-scene="wishes">
+      <div class="scene-inner center">
+        <p class="eyebrow">A jar full of good things</p>
+        <h1 class="display">Little wishes for<br><em>your year ahead.</em></h1>
+        <p class="lead">Tap the jar and let a little wish float out.</p>
+        <button class="wish-jar" id="wishJar" type="button"><span class="jar-glow">✦</span><span class="jar-body"><i>♡</i><i>✧</i><i>✦</i></span></button>
+        <div class="wish-note" id="wishNote" aria-live="polite">Your next little wish is waiting...</div>
+        <button class="primary-btn" data-next="finale" type="button">Ready for the final surprise? <span>→</span></button>
+      </div>
+    </section>
+
+    <!-- 10: Finale book + card -->
+    <section class="scene" id="scene-finale" data-scene="finale">
+      <div class="scene-inner center finale-inner">
+        <p class="eyebrow">The last little chapter</p>
+        <h1 class="display">One last thing,<br><em>Madam.</em></h1>
+        <p class="lead">A birthday wish, wrapped in a little story.</p>
+        <button class="book-button" id="openBook" type="button" aria-label="Open the birthday book">
+          <span class="book">
+            <span class="book-cover"><span class="book-stars">✦　♡　✧</span><strong>For Madam</strong><small>A little book of birthday magic</small><span class="book-mark">✧</span></span>
+            <span class="book-pages"></span>
+          </span>
+          <span class="book-prompt">Tap to open your birthday book</span>
+        </button>
+        <div class="birthday-card hidden" id="birthdayCard">
+          <div class="card-confetti" aria-hidden="true">✦　✧　♡　✦　✧</div>
+          <div class="card-content">
+            <p class="eyebrow">A wish from Armanaverse</p>
+            <h2>Happy Birthday,<br><em>Madam!</em></h2>
+            <div class="card-cake">🎂</div>
+            <p>May your days be gentle, your dreams feel closer, your laughter come easily, and your heart always find reasons to feel at home.</p>
+            <p class="card-small">Keep shining in your own beautiful way. ♡</p>
+            <span class="card-sign">— Armanaverse</span>
+          </div>
+        </div>
+        <p class="final-line hidden" id="finalLine">Some surprises end. The good wishes don't. ✦</p>
+        <button class="exit-btn hidden" id="exitBtn" type="button">EXIT <span>↗</span></button>
+      </div>
+    </section>
+
+    <div class="progress-dots" id="progressDots" aria-label="Journey progress">
+      <span class="dot current"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    </div>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="js/main.js"></script>
+</body>
+</html>
