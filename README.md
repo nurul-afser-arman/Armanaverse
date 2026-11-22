@@ -1,4 +1,4 @@
-# Armanaverse — Birthday Website
+# Armanaverse Website
 
 A responsive, single-page birthday journey with 10 connected scenes:
 1. Star-collecting mini game
@@ -25,7 +25,7 @@ For best results, run with a local development server (for example, VS Code Live
 2. Upload all files and folders from this project (not the ZIP itself).
 3. In the repository, open **Settings → Pages**.
 4. Under Build and deployment, select **Deploy from a branch**.
-5. Select `main` and `/root`, then Save.
+5. Select `main` and `/(root)`, then Save.
 6. Wait for the published URL shown in the Pages section.
 
 ## Notes
